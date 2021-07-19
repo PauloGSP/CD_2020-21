@@ -1,0 +1,30 @@
+@font-face {
+  font-family: 'Amatic SC';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Amatic SC Bold'), local('AmaticSC-Bold'),
+       url('../fonts/amatic-sc-v12-latin-700.woff2') format('woff2'),
+       url('../fonts/amatic-sc-v12-latin-700.woff') format('woff');
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: auto;
+}
+
+p {
+  word-wrap: break-word;
+  width: 750px;
+  margin-top: 0;
+  text-align: justify;
+}
+
+body {
+  font: 32px "Amatic SC", georgia, sans-serif;
+  color: #586e75;
+  background-color: #fdf6e3; 
+  margin: 0 20px 100px
+}

@@ -1,0 +1,19 @@
+name: Código actualizado com o Prof?
+on:
+  schedule:
+  - cron: "0 0 * * *"
+
+jobs:
+  compare_prof:
+    # Name the Job
+    name: Compare my tests with Professor repository
+    # Set the type of machine to run on
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Compare
+        run: |
+          cd tests && curl -o md5sum.txt https://gist.githubusercontent.com/dgomes/e0b241b133eecdbffbd930bcf7efb3da/raw && md5sum -c md5sum.txt 
