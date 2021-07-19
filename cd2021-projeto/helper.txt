@@ -1,5 +1,0 @@
-correr o build do container smp q mudamos o codigo
-meter print da versao
-connect ao ip do container do servidor
-cada slave tem o seu ip
-
