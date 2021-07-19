@@ -1,0 +1,66 @@
+name: Avaliação
+
+# Run this workflow every time a new commit pushed to your repository
+on: 
+  push:
+    branches:
+      - master
+      - main
+
+jobs:
+
+  nmecs_defined:
+    name: NMEC dos elementos do grupo
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v1
+
+      - name: Check file existence
+        id: check_files
+        uses: andstor/file-existence-action@v1
+        with:
+          files: "NMEC.txt"
+          allow_failure: true
+
+      - name: File exists
+        if: steps.check_files.outputs.files_exists == 'true'
+        # Only runs if all of the files exists
+        run: grep -E '[0-9]{5}.?-[0-9]{5}.?' NMEC.txt
+
+  bash_tests:
+    name: Bash Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checks out a copy of your repository on the ubuntu-latest machine
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Python 3.9
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pytest
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+          chmod +x *.sh
+
+      - name: Launch servers into background
+        run: |
+          bash ./setup.sh > load_balancer.txt &
+
+      - name: stress test on standby
+        run: |
+          bash ./stress_test.sh
+
+      - name: load_balancer Logs
+        uses: actions/upload-artifact@v2
+        with:
+          name: load_balancer logs
+          path: load_balancer.txt
+          retention-days: 1
+

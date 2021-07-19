@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>Pi</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/default.css') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.ico') }}">
+  </head>
+  <body>
+    <h1> Computing Pi with precision {{ calc.precision }} </h1>
+    <p>  Pi = {{ calc.pi }} </p>
+    <p> You are looking for 3.1415926535897932</p> <!-- Delete later-->
+  </body>
+</html>
